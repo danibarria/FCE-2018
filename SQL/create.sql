@@ -189,3 +189,92 @@ CREATE TABLE TipoRegular(
     constraint pk_TipoRegular primary key (idTipoRegular)
 );
 
+
+CREATE TABLE Categoria(
+    idCategoria int not null,
+    tipoProfesor int not null, /* profesor, auxiliar*/
+    constraint pk_Categoria primary key (idCategoria),
+    constraint fk_tipo foreign key (tipoProfesor) references Profesor
+);
+
+CREATE TABLE CategoriaProfesor(
+    idCategoria int not null,
+    idProfesor int not null,
+    constraint fk_Categoria foreign key (idCategoria) references Categoria,
+    constraint fk_Profesor foreign key (idProfesor) references Profesor
+);
+
+CREATE TABLE CategoriaAuxiliar(
+    idCategoria int not null,
+    idAuxiliar int not null,
+    constraint fk_Categoria foreign key (idCategoria) references Categoria,
+    constraint fk_Auxiliar foreign key (idAuxiliar) references Auxiliar
+);
+
+CREATE TABLE Profesor(
+    idProfesor int not null,
+    precio float,
+    constraint pk_Profesor primary key (idProfesor)
+);
+
+CREATE TABLE tipoProfesor(
+    idTipo int not null,
+    descripcion varchar(50), /*profesor , auxiliar*/
+    constraint pk_tipoInterino primary key (idTipo)
+);
+
+CREATE TABLE Auxiliar(
+    idAuxiliar int not null,
+    precio float,
+    TipoAuxiliar int not null, /*JTP, AUXILIAR 1era, Auxiliar 2da*/ 
+    constraint pk_Auxiliar primary key (idAuxiliar),
+    constraint fk_TipoAuxiliar foreign key (TipoAuxiliar) references TipoAuxiliar
+);
+
+CREATE TABLE TipoAuxiliar(
+    /*JTP, AUXILIAR 1era, Auxiliar 2da*/
+    idTipoAuxiliar int not null,
+    descripcion varchar(20),
+    constraint pk_idTipoAuxiliar primary key (idTipoAuxiliar)
+);
+
+CREATE TABLE EvaluacionInterino(
+    idEvaluacion int not null,
+    observacion varchar(60),
+    resultado boolean,
+    fecha date,
+    constraint pk_EvaluacionInterino primary key (idEvaluacion)
+);
+
+CREATE TABLE PlanMejoraInterino(
+    idPlan int not null,
+    idEvaluacion int not null,
+    constraint fk_Plan foreign key (idPlan) references PlanMejora,
+    constraint fk_Evaluacion foreign key (idEvaluacion) references EvaluacionInterino
+);
+
+CREATE TABLE Concurso(
+    idConcurso int not null,
+    fecha_inicio_estimado date,
+    fecha_inicio date,
+    fecha_fin_estimado date,
+    fecha_fin date,
+    idJurado int not null,
+    fecha_estimada date
+    fecha date,
+    idTema int not null,
+    idActividadAcademica int not null,
+    constraint pk_Concurso primary key(idConcurso),
+    constraint fk_Jurado foreign key (idJurado) references Jurado,
+    constraint fk_Tema foreign key (idTema) references Tema,
+    constraint fk_ActividadAcademica foreign key (idActividadAcademica) references Actividad Academica
+);
+
+CREATE TABLE DetalleConcurso(
+    idConcurso int not null,
+    idDetalleConcurso int not null,
+    fecha_inscripcion date not null,
+    constraint pk_Detalle primary key(idDetalleConcurso),
+    constraint fk_Concurso foreign key (idConcurso) references Concurso
+);
+
