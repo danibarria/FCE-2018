@@ -185,6 +185,7 @@ CREATE TABLE TipoDocente(
 CREATE TABLE TipoRegular(
     /*esto es por tipo Regular / interino */
     idTipoRegular int not null,
-    descripcion varchar(30)
+    descripcion varchar(30),
+    constraint pk_TipoRegular primary key (idTipoRegular)
 );
 
