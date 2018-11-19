@@ -278,3 +278,73 @@ CREATE TABLE DetalleConcurso(
     constraint fk_Concurso foreign key (idConcurso) references Concurso
 );
 
+CREATE TABLE AspiranteConcurso(
+    idAspirante int not null,
+    idConcurso int not null,
+    fecha date not null,
+    constraint fk_Aspirante foreign key (idAspirante) references Aspirante,
+    constraint fk_Concurso foreign key (idConcurso) references Concurso
+);
+
+CREATE TABLE Tema(
+    idTema int not null,
+    descripcion varchar(60),
+    idActividadAcademica int not null,
+    constraint pk_Tema primary key (idTema),
+    constraint fk_ActividadAcademica primary key (idActividadAcademica) references ActividadAcademica
+);
+
+CREATE TABLE Jurado(
+    idJurado int not null,
+    fecha_creacion timestamp,
+    completo boolean,
+    constraint pk_Jurado primary key (idJurado)
+);
+
+CREATE TABLE AlumnoAutorizado(
+    nroMatricula int not null,
+    nombre varchar(40),
+    apellido varchar(40),
+    anio_cursado int,
+    constraint pk_AlumnoAutorizado primary key (nroMatricula) 
+);
+
+CREATE TABLE Profesional(
+    idProfesional int not null,
+    nombre varchar(60),
+    apellido varchar(60),
+    idLocalidad int not null,
+    constraint pk_Profesional primary key (idProfesional),
+    constraint fk_Localidad foreign key (idLocalidad) references Localidad
+);
+
+CREATE TABLE Localidad(
+    idLocalidad int not null,
+    nombre varchar(60),
+    constraint pk_Localidad primary key (idLocalidad)
+);
+
+CREATE TABLE JuradoAlumnoAutorizado(
+    idJurado int not null,
+    nroMatricula int not null,
+    fecha date,
+    constraint fk_Jurado foreign key (idJurado) references Jurado,
+    constraint fk_AlumnoAutorizado foreign key (nroMatricula) references AlumnoAutorizado
+);
+
+CREATE TABLE JuradoDocente(
+    idJurado int not null,
+    legajo int not null,
+    fecha date,
+    constraint fk_Jurado foreign key (idJurado) references Jurado,
+    constraint fk_Docente foreign key (legajo) references Docente
+);
+
+CREATE TABLE Profesional(
+    idJurado int not null,
+    idProfesional int not null,
+    fecha date,
+    constraint fk_Jurado foreign key (idJurado) references Jurado,
+    constraint fk_Profesional foreign key (idProfesional) references Profesional    
+);
+
