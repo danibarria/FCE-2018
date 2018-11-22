@@ -26,13 +26,13 @@ insert into Aspirante(nombre, apellido, direccion) values
 	("Merli", "Bergeron", "Marconi 200");
 
 insert into Docente(fecha_nacimiento, nombre, apellido, direccion, id_aspirante, id_localidad) values
-	("Juan", "Minujin", "Winter 33", 1, 1);
+	('12-12-2018',"Juan", "Minujin", "Winter 33", 1, 1);
 
 insert into Docente(fecha_nacimiento, nombre, apellido, direccion, id_aspirante, id_localidad) values
-	("Pablo", "Neruda", "Pecoraro 1432", 2, 1);
+	('12-12-2011',"Pablo", "Neruda", "Pecoraro 1432", 2, 1);
 
 insert into Docente(fecha_nacimiento, nombre, apellido, direccion, id_aspirante, id_localidad) values
-	("Andres", "Ovich, "San Martin 285", 3, 2);
+	('11-11-2011',"Andres", "Ovich", "San Martin 285", 3, 2);
 
 
 
