@@ -19,7 +19,7 @@ ON Docente.legajo = PeriodoActividad.legajo) /*Join de los docen3*/
 
 
 /*4. Cuántos y cuáles son los docentes asignados a determinada materia. (Listado del equipo docente de una materia).*/
-SELECT Dpcente.Nombre,  FROM ((((((((ActividadAcademica 
+SELECT Docente.Nombre,  FROM ((((((((ActividadAcademica 
 WHERE ActividadAcademica.descripcion='Sistemas Operativos' && ActividadAcademica.esAsignatura = TRUE)
 INNER JOIN Asignacion ON ActividadAcademica.codigo = Asignacion.codigo)
 INNER JOIN AsignacionDesignacion ON AsignacionDesignacion.codigo = Asignacion.codigo)
@@ -28,3 +28,21 @@ INNER JOIN Designacion ON Designacion.codigo = AsignacionDesignacion.codigo)
 INNER JOIN DesignacionPeriodoActividad ON Designacion.codigo = DesignacionPeriodoActividad.codigo)
 INNER JOIN PeriodoActividad ON PeriodoActividad.codigo = DesignacionPeriodoActividad.codigo)
 INNER JOIN Docente ON Periodo.codigo = Docente.legajo)
+
+
+
+
+/*Consultas grupo Carlos, Alex, David
+
+Consultar los antecedentes de un docente dado 
+*/
+
+SELECT Docente.idAspirante, Antecedente.idAntecedente as tuvieja,  ActividadAcademica.descripcion
+FROM  (((Docente INNER JOIN Antecedente ON Docente.idAntecedente = Antecedente.idAntecedente)
+INNER JOIN AntecedenteRealizoActividadAcademica ON Antecedente.idAntecedente = AntecedenteRealizoActividadAcademica.idAntecedente)
+INNER JOIN ActividadAcademica ON ActividadAcademica.idActividadAcademica = AntecedenteRealizoActividadAcademica.idActividadAcademica)
+UNION
+SELECT Docente.idAspirante, Antecedente.idAntecedente as tuvieja, ActividadProfesional.descripcion FROM
+(((Docente INNER JOIN Antecedente ON Docente.idAntecedente = Antecedente.idAntecedente)
+INNER JOIN AntecedenteRealizoActividadProfesional ON Antecedente.idAntecedente = AntecedenteRealizoActividadProfesional.idAntecedente)
+INNER JOIN ActividadProfesional ON ActividadProfesional.idActividadProfesional = AntecedenteRealizoActividadProfesional.idActividadProfesional)

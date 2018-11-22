@@ -17,18 +17,18 @@ insert into Aspirante(idaspirante, nombre, apellido, direccion) values (12312,'M
 --     -- constraint fk_Docente foreign key (legajo) references Docente
 -- );
 
-insert into Antecedente(descripcion) values ('antecedentes de juan');
-insert into Antecedente(descripcion) values ('antecedentes de pablo');
-insert into Antecedente(descripcion) values ('antecedentes de andres');
+insert into Antecedente(descripcion) values ('Antecedentes de Juan');
+insert into Antecedente(descripcion) values ('Antecedentes de Pablo');
+insert into Antecedente(descripcion) values ('Antecedentes de Andres');
 
-insert into Docente(fecha_nacimiento, nombre, apellido, direccion, idaspirante, idlocalidad, idantecedente ) 
-values ('12-12-2018','Juan', 'Minujin', 'Winter 33', 12344,1,1);
-
-insert into Docente(fecha_nacimiento, nombre, apellido, direccion, idaspirante, idlocalidad, idantecedente) 
-values ('12-12-2011','Pablo', 'Neruda', 'Pecoraro 1432', 21213,1,2);
+insert into Docente(fecha_nacimiento, idaspirante, idlocalidad, idantecedente ) 
+values ('12-12-2018', 12344,1,1);
 
 insert into Docente(fecha_nacimiento, nombre, apellido, direccion, idaspirante, idlocalidad, idantecedente) 
-values ('11-11-2011','Andres', 'Ovich', 'San Martin 285', 12312,2,3);
+values ('12-12-2011', 21213,1,2);
+
+insert into Docente(fecha_nacimiento, nombre, apellido, direccion, idaspirante, idlocalidad, idantecedente) 
+values ('11-11-2011', 12312,2,3);
 
 insert into TipoRegular(descripcion) values('Regular');
 insert into TipoRegular(descripcion) values('Interino');
