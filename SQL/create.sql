@@ -12,6 +12,14 @@ CREATE TABLE Aspirante(
     constraint pk_Aspirante primary key (idAspirante)
 );
 
+CREATE TABLE Antecedente(
+    idAntecedente serial,
+    descripcion varchar(50),
+    -- legajo int not null,
+    constraint pk_Antecedente primary key (idAntecedente)
+    -- constraint fk_Docente foreign key (legajo) references Docente
+);
+
 CREATE TABLE Docente(
     legajo serial,
     fecha_nacimiento date,
@@ -47,6 +55,23 @@ CREATE TABLE Dedicacion(
     cantidad_horas int not null,
     precio float,
     constraint pk_Dedicacion primary key (idDedicacion)
+);
+
+CREATE TABLE TipoRegular(
+    /*esto es por tipo Regular / interino */
+    idTipoRegular serial,
+    descripcion varchar(30),
+    constraint pk_TipoRegular primary key (idTipoRegular)
+);
+
+CREATE TABLE TipoDocente(
+    idTipoDocente serial,
+    antiguedad int not null,
+    precio float not null, /* precio de la hora catedra*/
+    enCarreraAcademica boolean, /*si / no */
+    tipoRegularidad int not null,
+    constraint pk_TipoDocente primary key (idTipoDocente),
+    constraint fk_TipoRegular foreign key (tipoRegularidad) references TipoRegular
 );
 
 CREATE TABLE Designacion(
@@ -104,14 +129,6 @@ CREATE TABLE MotivoBajaDocente(
     fecha date not null,
     constraint fk_Docente foreign key (legajo) references Docente,
     constraint fk_MotivoBaja foreign key (idMotivo) references MotivoBaja    
-);
-
-CREATE TABLE Antecedente(
-    idAntecedente serial,
-    descripcion varchar(50),
-    legajo int not null,
-    constraint pk_Antecedente primary key (idAntecedente), 
-    constraint fk_Docente foreign key (legajo) references Docente
 );
 
 CREATE TABLE AntecedenteRealizoActividadAcademica(
@@ -209,28 +226,12 @@ CREATE TABLE Licencia(
     constraint fk_PeriodoActividad foreign key (idPeriodoActividad) references PeriodoActividad
 );
 
-CREATE TABLE TipoRegular(
-    /*esto es por tipo Regular / interino */
-    idTipoRegular serial,
-    descripcion varchar(30),
-    constraint pk_TipoRegular primary key (idTipoRegular)
-);
 
 CREATE TABLE Jurado(
     idJurado serial,
     fecha_creacion timestamp,
     completo boolean,
     constraint pk_Jurado primary key (idJurado)
-);
-
-CREATE TABLE TipoDocente(
-    idTipoDocente serial,
-    antiguedad int not null,
-    precio float not null, /* precio de la hora catedra*/
-    enCarreraAcademica boolean, /*si / no */
-    tipoRegularidad int not null,
-    constraint pk_TipoDocente primary key (idTipoDocente),
-    constraint fk_TipoRegular foreign key (tipoRegularidad) references TipoRegular
 );
 
 CREATE TABLE CategoriaProfesor(
@@ -268,6 +269,25 @@ CREATE TABLE CategoriaAuxiliar(
     constraint fk_Auxiliar foreign key (idAuxiliar) references Auxiliar
 );
 
+CREATE TABLE EncuestaDocente(
+    idEncuesta serial,
+    resultado boolean,
+    fecha date,
+    -- idEvaluacionInterino int not null,
+    constraint pk_Encuesta primary key (idEncuesta)
+    -- constraint fk_EvaluacionInterino foreign key (idEvaluacionInterino) references EvaluacionInterino
+);
+
+CREATE TABLE InformeCatedra(
+    idInforme serial,
+    descripcion varchar(120),
+    resultado boolean, 
+    fecha date,
+    -- idEvaluacionInterino int not null,
+    constraint pk_InformeCatedra primary key (idInforme)
+    -- constraint fk_EvaluacionInterino foreign key (idEvaluacionInterino) references EvaluacionInterino
+);
+
 CREATE TABLE EvaluacionInterino(
     idEvaluacion serial,
     observacion varchar(60),
@@ -277,9 +297,9 @@ CREATE TABLE EvaluacionInterino(
     idInformeCatedra int not null,
     idPeriodoActividad int not null,
     constraint pk_EvaluacionInterino primary key (idEvaluacion),
-    constraint fk_EncuestaDocente foreign key (idEncuestaDocente),
-    constraint fk_InformeCatedra foreign key (idInformeCatedra),
-    constraint fk_PeriodoActividad foreign key (idPeriodoActividad)
+    constraint fk_EncuestaDocente foreign key (idEncuestaDocente)references EncuestaDocente,
+    constraint fk_InformeCatedra foreign key (idInformeCatedra)references InformeCatedra,
+    constraint fk_PeriodoActividad foreign key (idPeriodoActividad)references PeriodoActividad
 );
 
 -- CREATE TABLE PlanMejoraInterino(
@@ -310,8 +330,8 @@ CREATE TABLE Concurso(
     idTema int not null,
     constraint pk_Concurso primary key(idConcurso),
     constraint fk_Jurado foreign key (idJurado) references Jurado,
-    constraint fk_Asignatura foreign key (idAsignatura) references Asignatura
-    constraint fk_Tema foreign key (idTema) references Tema,
+    constraint fk_Asignatura foreign key (idAsignatura) references ActividadAcademica,
+    constraint fk_Tema foreign key (idTema) references Tema
 );
 
 CREATE TABLE DetalleConcurso(
@@ -319,7 +339,7 @@ CREATE TABLE DetalleConcurso(
     idDetalleConcurso int not null,
     renglon int not null,
     posicion int not null,
-    puntaje int not null
+    puntaje int not null,
     observacion text,
     fecha_inscripcion date not null,
     constraint pk_Detalle primary key(idDetalleConcurso),
@@ -375,24 +395,8 @@ CREATE TABLE JuradoDocente(
     constraint fk_Docente foreign key (legajo) references Docente
 );
 
-CREATE TABLE InformeCatedra(
-    idInforme serial,
-    descripcion varchar(120),
-    resultado boolean, 
-    fecha date,
-    idEvaluacionInterino int not null,
-    constraint pk_InformeCatedra primary key (idInforme),
-    constraint fk_EvaluacionInterino foreign key (idEvaluacionInterino) references EvaluacionInterino
-);
 
-CREATE TABLE EncuestaDocente(
-    idEncuesta serial,
-    resultado boolean,
-    fecha date,
-    idEvaluacionInterino int not null,
-    constraint pk_Encuesta primary key (idEncuesta),
-    constraint fk_EvaluacionInterino foreign key (idEvaluacionInterino) references EvaluacionInterino
-);
+
 
 CREATE TABLE AsignacionEspacioDisciplinario(
     idDesignacion int not null,
