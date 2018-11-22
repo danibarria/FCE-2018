@@ -380,3 +380,12 @@ CREATE TABLE AsignacionEspacioDisciplinario(
     constraint fk_Designacion foreign key (idDesignacion) references Designacion,
     constraint fk_EspacioDisciplinario foreign key (idEspacioDisciplinario) references EspacioDisciplinario
 );
+
+CREATE TABLE DesignacionPeriodoActividad(
+    id serial,
+    idDesignacion int not null,
+    idPeriodoActividad int not null,
+    constraint pk_DxP primary key (id),
+    constraint fk_Designacion foreign key (idDesignacion) references Designacion,
+    constraint fk_PeriodoActividad foreign key (idPeriodoActividad) references PeriodoActividad
+);

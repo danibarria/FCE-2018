@@ -46,3 +46,12 @@ SELECT Docente.idAspirante, Antecedente.idAntecedente as tuvieja, ActividadProfe
 (((Docente INNER JOIN Antecedente ON Docente.idAntecedente = Antecedente.idAntecedente)
 INNER JOIN AntecedenteRealizoActividadProfesional ON Antecedente.idAntecedente = AntecedenteRealizoActividadProfesional.idAntecedente)
 INNER JOIN ActividadProfesional ON ActividadProfesional.idActividadProfesional = AntecedenteRealizoActividadProfesional.idActividadProfesional)
+
+
+/*consultar las licencias pendientes de un docente dado */
+
+/*consultar la cantidad de designación realizadas en el actual ciclo lectivo */
+SELECT COUNT(id) 
+FROM (PeriodoActividad 
+INNER JOIN DesignacionPeriodoActividad 
+ON PeriodoActividad.idDesignacion = DesignacionPeriodoActividad.idDesignacion )
