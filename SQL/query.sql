@@ -55,3 +55,9 @@ SELECT COUNT(id)
 FROM (PeriodoActividad 
 INNER JOIN DesignacionPeriodoActividad 
 ON PeriodoActividad.idDesignacion = DesignacionPeriodoActividad.idDesignacion )
+
+/*consultar todos los docentes de un espacio disciplinar.*/
+-- SELECT Apirante.nombre 
+-- FROM (EspacioDisciplinario 
+-- INNER JOIN EspacioDisciplinarioDisgnacion 
+-- )
