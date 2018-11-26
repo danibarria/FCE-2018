@@ -41,10 +41,10 @@
           Designacion
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="Designacion/alta-Designacion.php">Alta</a>
+          <a class="dropdown-item" href="designacion/alta-designacion.php">Alta</a>
           <a class="dropdown-item" href="#">Baja</a>
           <!-- <div class="dropdown-divider"></div> -->
-          <a class="dropdown-item" href="Designacion/consulta-Designacion.php">Consulta</a>
+          <a class="dropdown-item" href="designacion/consulta-designacion.php">Consulta</a>
         </div>
       </li>
       <li class="nav-item dropdown">
